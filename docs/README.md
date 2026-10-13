@@ -9,26 +9,26 @@ GOLF built the infrastructure. HOTEL puts it to work: **static frontend → `fet
 
 | Main | PROD | Dev | DEV | Docs | CI/CD workflow | PROD deployment evidence |
 |---|---|---|---|---|---|---|
-| [main](https://github.com/sclary2001/fullstack-brain-bucket/tree/main) | [Production app](https://brain.barrycumbie.com) | [dev branch](https://github.com/sclary2001/fullstack-brain-bucket/tree/dev) | [Development app](https://fullstack-brain-bucket-bpdo.onrender.com) | [docs/README.md](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/docs/README.md) | [Verify HOTEL](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/.github/workflows/verify-hotel.yml) · [GCP deploy](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml) | [Latest GCP workflow run](https://github.com/sclary2001/fullstack-brain-bucket/actions/runs/38440494332) |
+| [main](https://github.com/sclary2001/fullstack-brain-bucket/tree/main) | [Production app](https://brain.barrycumbie.com) | [dev branch](https://github.com/sclary2001/fullstack-brain-bucket/tree/dev) | [Development app](https://fullstack-brain-bucket-bpdo.onrender.com) | [docs/README.md](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/docs/README.md) | [Verify HOTEL](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/verify-hotel.yml) · [GCP deploy](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml) | [Latest GCP workflow run](https://github.com/sclary2001/fullstack-brain-bucket/actions/runs/38440494332) |
 
 ## HOTEL grading dashboard
 
 | Requirement | Evidence |
 |---|---|
-| MongoDB Atlas connection | [`server/mongo.js`](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/server/mongo.js#L6-L18) |
-| GET all | [`GET /api/items`](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/server/app.js#L64-L72) |
-| GET one by identifier | [`GET /api/items/:id`](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/server/app.js#L74-L82) |
-| Filtered GET (`category`, `q`) | [`GET /api/items?category=...&q=...`](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/server/app.js#L64-L72) |
-| POST / create | [`POST /api/items`](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/server/app.js#L84-L94) |
-| PATCH / update | [`PATCH /api/items/:id`](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/server/app.js#L96-L109) |
-| DELETE | [`DELETE /api/items/:id`](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/server/app.js#L111-L119) |
-| Frontend `fetch()` → DOM | [`public/hotel.js`](https://github.com/sclary2001/fullstack-brain-bucket/blob/feature/hotel-supply-crud/public/hotel.js#L10-L35) |
+| MongoDB Atlas connection | [`server/mongo.js`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/mongo.js#L6-L18) |
+| GET all | [`GET /api/items`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L64-L72) |
+| GET one by identifier | [`GET /api/items/:id`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L74-L82) |
+| Filtered GET (`category`, `q`) | [`GET /api/items?category=...&q=...`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L64-L72) |
+| POST / create | [`POST /api/items`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L84-L94) |
+| PATCH / update | [`PATCH /api/items/:id`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L96-L109) |
+| DELETE | [`DELETE /api/items/:id`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L111-L119) |
+| Frontend `fetch()` → DOM | [`public/hotel.js`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/public/hotel.js#L10-L35) |
 | Persistent CRUD on PROD | [Production app](https://brain.barrycumbie.com) |
 | HOTEL milestone | [Hotel milestone](https://github.com/sclary2001/fullstack-brain-bucket/milestone/1) |
-| Example issue | [HOTEL issues](https://github.com/sclary2001/fullstack-brain-bucket/issues) — issue/assignee/label/milestone evidence pending |
+| Example issue | [Issue #1](https://github.com/sclary2001/fullstack-brain-bucket/issues/1) — assignee, enhancement label, Hotel milestone, acceptance criteria, and branch |
 | Development branch | [feature/hotel-supply-crud](https://github.com/sclary2001/fullstack-brain-bucket/tree/feature/hotel-supply-crud) |
-| Feature → dev | [Pull requests](https://github.com/sclary2001/fullstack-brain-bucket/pulls) — PR evidence pending |
-| dev → main | [Pull requests](https://github.com/sclary2001/fullstack-brain-bucket/pulls) — PR evidence pending |
+| Feature → dev | [PR #2](https://github.com/sclary2001/fullstack-brain-bucket/pull/2) — merged into `dev` |
+| dev → main | [PR #3](https://github.com/sclary2001/fullstack-brain-bucket/pull/3) — open for review |
 | PROD deployment | [GCP Actions history](https://github.com/sclary2001/fullstack-brain-bucket/actions/workflows/re-deploy-main-to-gcp.yml) — latest recorded run failed; a successful post-merge run is still needed |
 
 ## App + API
