@@ -1,0 +1,36 @@
+name: HOTEL feature
+description: Track a HOTEL feature through the class development and deployment flow.
+title: "HOTEL: "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: "Assign the issue, add it to the HOTEL milestone, and create a feature branch before opening a PR."
+  - type: textarea
+    id: story
+    attributes:
+      label: User story and description
+      placeholder: As a hotel team member, I want...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Development branch
+      placeholder: feature/hotel-supply-crud
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Related pull requests and deployment evidence
+      description: Link the feature → dev PR, dev → main PR, and successful PROD deployment.
