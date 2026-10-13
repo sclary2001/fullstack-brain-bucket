@@ -1,25 +1,26 @@
 {
-  "name": "y",
+  "name": "hotel-full-stack",
   "version": "1.0.0",
-  "description": "> [dev project] charlie",
-  "homepage": "https://github.com/barrycumbie/fullstack-brain-bucket#readme",
+  "description": "HOTEL inventory desk: Express REST API and MongoDB Atlas",
+  "homepage": "https://github.com/sclary2001/fullstack-brain-bucket#readme",
   "bugs": {
-    "url": "https://github.com/barrycumbie/fullstack-brain-bucket/issues"
+    "url": "https://github.com/sclary2001/fullstack-brain-bucket/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/barrycumbie/fullstack-brain-bucket.git"
+    "url": "git+https://github.com/sclary2001/fullstack-brain-bucket.git"
   },
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "index.js",
+  "main": "app.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
