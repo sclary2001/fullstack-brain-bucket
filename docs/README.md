@@ -9,7 +9,7 @@ GOLF built the infrastructure. HOTEL puts it to work: **static frontend → `fet
 
 | Main | PROD | Dev | DEV | Docs | CI/CD workflow | PROD deployment evidence |
 |---|---|---|---|---|---|---|
-| [main](https://github.com/sclary2001/fullstack-brain-bucket/tree/main) | [Production app](https://brain.barrycumbie.com) | [dev branch](https://github.com/sclary2001/fullstack-brain-bucket/tree/dev) | [Development app](https://fullstack-brain-bucket-bpdo.onrender.com) | [docs/README.md](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/docs/README.md) | [Verify HOTEL](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/verify-hotel.yml) · [GCP deploy](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml) | [Post-merge GCP run #2 — failed](https://github.com/sclary2001/fullstack-brain-bucket/actions/runs/38484176217) |
+| [main](https://github.com/sclary2001/fullstack-brain-bucket/tree/main) | [Production app](https://brain.barrycumbie.com) | [dev branch](https://github.com/sclary2001/fullstack-brain-bucket/tree/dev) | [Development app](https://fullstack-brain-bucket-bpdo.onrender.com) — old app; HOTEL not deployed | [docs/README.md](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/docs/README.md) | [Verify HOTEL](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/verify-hotel.yml) · [GCP deploy](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml) | [Post-merge GCP run #2 — failed](https://github.com/sclary2001/fullstack-brain-bucket/actions/runs/38484176217) |
 
 ## HOTEL grading dashboard
 
@@ -29,7 +29,11 @@ GOLF built the infrastructure. HOTEL puts it to work: **static frontend → `fet
 | Development branch | [feature/hotel-supply-crud](https://github.com/sclary2001/fullstack-brain-bucket/tree/feature/hotel-supply-crud) |
 | Feature → dev | [PR #2](https://github.com/sclary2001/fullstack-brain-bucket/pull/2) — merged into `dev` |
 | dev → main | [PR #3](https://github.com/sclary2001/fullstack-brain-bucket/pull/3) — merged into `main` |
-| PROD deployment | [GCP run #2](https://github.com/sclary2001/fullstack-brain-bucket/actions/runs/38484176217) failed because repository secret `SSH_PRIVATE_KEY` is empty; add the VM private key as an Actions secret, rerun deploy, then verify the app |
+| PROD deployment | [GCP run #2](https://github.com/sclary2001/fullstack-brain-bucket/actions/runs/38484176217) failed because repository secret `SSH_PRIVATE_KEY` is empty. Add the VM private key as an Actions secret; also set `MONGODB_URI` on the GCP host before rerunning deploy. |
+
+## Current deployment status
+
+The feature code is merged into `main` and CI passes. HOTEL is not live on the hosted URLs yet: the Render DEV app still serves the previous version, and the post-merge GCP run failed at SSH authentication because `SSH_PRIVATE_KEY` is empty. Set that secret in GitHub repository **Settings → Secrets and variables → Actions**. Set `MONGODB_URI` server-side on the GCP VM and in the Render service environment; never commit either value. Then redeploy and verify `/api/health` and persistent CRUD.
 
 ## App + API
 
