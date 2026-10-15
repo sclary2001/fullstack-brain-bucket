@@ -14,7 +14,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          printf '%s\\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H 34.39.144.144 >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
@@ -22,7 +22,7 @@ jobs:
       - name: Deploy HOTEL to GCP
         shell: bash
         env:
-          SSH_USER: barrycumbie
+          SSH_USER: seanclary_2001
           SSH_HOST: 34.39.144.144
           APP_DIR: app/server
           PM2_NAME: app
