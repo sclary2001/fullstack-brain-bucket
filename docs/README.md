@@ -9,7 +9,7 @@ GOLF built the infrastructure. HOTEL puts it to work: **static frontend → `fet
 
 | Main | PROD | Dev | DEV | Docs | CI/CD workflow | PROD deployment evidence |
 |---|---|---|---|---|---|---|
-| [main](https://github.com/sclary2001/fullstack-brain-bucket/tree/main) | [Production app](https://brain.barrycumbie.com) | [dev branch](https://github.com/sclary2001/fullstack-brain-bucket/tree/dev) | [Development app](https://fullstack-brain-bucket-bpdo.onrender.com) — old app; HOTEL not deployed | [docs/README.md](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/docs/README.md) | [Verify HOTEL](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/verify-hotel.yml) · [GCP deploy](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml) | [Post-merge GCP run #2 — failed](https://github.com/sclary2001/fullstack-brain-bucket/actions/runs/38484176217) |
+| [main](https://github.com/sclary2001/fullstack-brain-bucket/tree/main) | [GCP HOTEL](http://34.39.144.144:5500/) — waiting for deploy | [dev branch](https://github.com/sclary2001/fullstack-brain-bucket/tree/dev) | [Development app](https://fullstack-brain-bucket-bpdo.onrender.com) — old app; HOTEL not deployed | [docs/README.md](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/docs/README.md) | [Verify HOTEL](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/verify-hotel.yml) · [GCP deploy](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml) | [GCP deployment history](https://github.com/sclary2001/fullstack-brain-bucket/actions/workflows/re-deploy-main-to-gcp.yml) |
 
 ## HOTEL grading dashboard
 
@@ -23,17 +23,27 @@ GOLF built the infrastructure. HOTEL puts it to work: **static frontend → `fet
 | PATCH / update | [`PATCH /api/items/:id`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L96-L109) |
 | DELETE | [`DELETE /api/items/:id`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L111-L119) |
 | Frontend `fetch()` → DOM | [`public/hotel.js`](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/public/hotel.js#L10-L35) |
-| Persistent CRUD on PROD | [Production app](https://brain.barrycumbie.com) — pending deployment; the current host serves the previous app |
+| Persistent CRUD on PROD | [GCP HOTEL app](http://34.39.144.144:5500/) — pending deployment and server MongoDB setup |
+| GCP API health check | [`/api/health`](http://34.39.144.144:5500/api/health) — should return `{"status":"ok"}` when running |
 | HOTEL milestone | [Hotel milestone](https://github.com/sclary2001/fullstack-brain-bucket/milestone/1) |
 | Example issue | [Issue #1](https://github.com/sclary2001/fullstack-brain-bucket/issues/1) — assignee, enhancement label, Hotel milestone, acceptance criteria, [branch](https://github.com/sclary2001/fullstack-brain-bucket/tree/feature/hotel-supply-crud), and related PRs |
 | Development branch | [feature/hotel-supply-crud](https://github.com/sclary2001/fullstack-brain-bucket/tree/feature/hotel-supply-crud) |
 | Feature → dev | [PR #2](https://github.com/sclary2001/fullstack-brain-bucket/pull/2) — merged into `dev` |
 | dev → main | [PR #3](https://github.com/sclary2001/fullstack-brain-bucket/pull/3) — merged into `main` |
-| PROD deployment | [GCP run #2](https://github.com/sclary2001/fullstack-brain-bucket/actions/runs/38484176217) failed because repository secret `SSH_PRIVATE_KEY` is empty. Add the VM private key as an Actions secret; also set `MONGODB_URI` on the GCP host before rerunning deploy. |
+| GCP workflow target fix | [PR #4](https://github.com/sclary2001/fullstack-brain-bucket/pull/4) — merged into `dev`; this promotion PR carries the fix to `main` |
+| PROD deployment | [GCP deploy workflow](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml); successful deployment pending SSH key and server MongoDB URI |
 
-## Current deployment status
+## Current GCP deployment status
 
-The feature code is merged into `main` and CI passes. HOTEL is not live on the hosted URLs yet: the Render DEV app still serves the previous version, and the post-merge GCP run failed at SSH authentication because `SSH_PRIVATE_KEY` is empty. Set that secret in GitHub repository **Settings → Secrets and variables → Actions**. Set `MONGODB_URI` server-side on the GCP VM and in the Render service environment; never commit either value. Then redeploy and verify `/api/health` and persistent CRUD.
+The VM shown in GCP is `34.39.144.144`. The deploy workflows target that VM, pull `main` into `app/server`, and start `app.js` with PM2. The GCP app and health-check links above are not live yet; the health URL currently refuses the connection.
+
+To finish deployment:
+1. Add the VM's matching private SSH key in GitHub **Settings → Secrets and variables → Actions** as `SSH_PRIVATE_KEY`.
+2. Configure `MONGODB_URI` in `app/server/.env` on the VM; keep the URI out of GitHub.
+3. Confirm the VM's web route reaches port `5500` or its configured reverse proxy.
+4. After this PR reaches `main`, run the [GCP deploy workflow](https://github.com/sclary2001/fullstack-brain-bucket/actions/workflows/re-deploy-main-to-gcp.yml), then verify the app and health-check links above.
+
+Never put the MongoDB URI or SSH private key in source control.
 
 ## App + API
 
