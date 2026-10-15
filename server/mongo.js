@@ -5,7 +5,7 @@ let client;
 let database;
 
 export async function connectMongo() {
-  const uri = process.env.MONGODB_URI;
+  const uri = process.env.MONGO_URI;
   if (!uri) throw new Error('MONGODB_URI is required. Set it in the server environment.');
 
   client = new MongoClient(uri, {
