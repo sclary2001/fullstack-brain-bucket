@@ -34,7 +34,7 @@ GOLF built the infrastructure. HOTEL puts it to work: **static frontend → `fet
 
 ## Current GCP deployment status
 
-The HOTEL code is merged into `main`. GCP shows the target VM at `34.39.144.144`; both deploy workflows now target that VM and run `server/app.js`. The app and health-check URLs are linked above, but the health check currently refuses the connection, so HOTEL is not live yet.
+The GCP VM shown in your console is `34.39.144.144`. Both deploy workflows now target that VM and run `server/app.js`. The linked app and health-check URLs are not live yet; the health check currently refuses the connection.
 
 To finish:
 1. Add the VM's matching private SSH key in GitHub **Settings → Secrets and variables → Actions** as `SSH_PRIVATE_KEY`.
