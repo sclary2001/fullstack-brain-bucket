@@ -24,13 +24,18 @@ jobs:
         env:
           SSH_USER: seanclary_2001
           SSH_HOST: 34.39.144.144
-          APP_DIR: app/server
-          PM2_NAME: app
+          APP_ROOT: hotel
+          APP_DIR: hotel/server
+          PM2_NAME: hotel
         run: |
           ssh -i ~/.ssh/deploy_key -T "$SSH_USER@$SSH_HOST" <<EOF
             set -e
+            if [ ! -d "$APP_ROOT/.git" ]; then
+              git clone https://github.com/sclary2001/fullstack-brain-bucket.git "$APP_ROOT"
+            else
+              git -C "$APP_ROOT" pull --ff-only origin main
+            fi
             cd "$APP_DIR"
-            git pull --ff-only origin main
             npm ci
             pm2 delete "$PM2_NAME" 2>/dev/null || true
             pm2 start app.js --name "$PM2_NAME"
