@@ -1,9 +1,9 @@
 # HOTEL
-> A simple supply desk for tracking the items a hotel team needs.
+> A video game library for the HOTEL guest game room.
 
 `@sclary2001` | `2026-10-20` | `HOTEL`
 
-HOTEL uses a browser page, `fetch()`, an Express REST API, and MongoDB Atlas. This page is the quick map to the app, code, and grading evidence.
+HOTEL uses a browser page, `fetch()`, an Express REST API, and MongoDB Atlas. This page maps the game room app, code, and grading evidence.
 
 ## Quick links
 
@@ -27,12 +27,12 @@ HOTEL uses a browser page, `fetch()`, an Express REST API, and MongoDB Atlas. Th
 | Requirement | Direct evidence |
 |---|---|
 | MongoDB Atlas connection | [Connection code](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/mongo.js#L6-L18) |
-| GET all supplies | [GET endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L64-L72) |
-| GET one supply by ID | [GET by ID endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L74-L82) |
-| Filter supplies by category or search text | [Filtered GET endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L64-L72) |
-| POST creates a supply | [POST endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L84-L94) |
-| PATCH updates a supply | [PATCH endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L96-L109) |
-| DELETE removes a supply | [DELETE endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L111-L119) |
+| GET all games | [GET endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L64-L72) |
+| GET one game by ID | [GET by ID endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L74-L82) |
+| Filter by platform or title | [Filtered GET endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L64-L72) |
+| POST creates a game | [POST endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L84-L94) |
+| PATCH updates a game | [PATCH endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L96-L109) |
+| DELETE removes a game | [DELETE endpoint](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/server/app.js#L111-L119) |
 | Frontend uses `fetch()` and updates the page | [HOTEL browser code](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/public/hotel.js#L10-L35) |
 | HOTEL page shown at the site root | [public/index.html](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/public/index.html) |
 | Persistent CRUD on PROD | [GCP HOTEL app](http://34.39.144.144:5500/) — verify after deployment |
@@ -46,15 +46,15 @@ HOTEL uses a browser page, `fetch()`, an Express REST API, and MongoDB Atlas. Th
 
 ## What the app does
 
-The HOTEL page tracks supplies such as towels, linens, and guest amenities. Team members can add an item, search or filter the list, edit a saved item, and delete it. The browser sends JSON to Express; Express reads and writes MongoDB Atlas and returns JSON to the page.
+The HOTEL Game Room tracks video games for hotel guests. Team members can add a game, search or filter the collection by title or platform, edit a saved game, and delete it. The browser sends JSON to Express; Express reads and writes MongoDB Atlas and returns JSON to the page.
 
 | HTTP method | Endpoint | MongoDB action | Use |
 |---|---|---|---|
-| `GET` | `/api/items` | `find()` | List items; filter with `category` or `q` |
-| `GET` | `/api/items/:id` | `findOne()` | Read one item by ID |
-| `POST` | `/api/items` | `insertOne()` | Create an item |
-| `PATCH` | `/api/items/:id` | `updateOne()` | Update an item |
-| `DELETE` | `/api/items/:id` | `deleteOne()` | Delete an item |
+| `GET` | `/api/items` | `find()` | List games; filter with `category` (platform) or `q` (title) |
+| `GET` | `/api/items/:id` | `findOne()` | Read one game by ID |
+| `POST` | `/api/items` | `insertOne()` | Create a game |
+| `PATCH` | `/api/items/:id` | `updateOne()` | Update a game |
+| `DELETE` | `/api/items/:id` | `deleteOne()` | Delete a game |
 
 ## Architecture and workflow
 
@@ -65,7 +65,7 @@ feature branch → PR → dev → PR → main → GitHub Actions → GCP VM
 
 ## Deployment status
 
-The GCP VM address is `34.39.144.144`. The existing GOLF site is in `~/app`; HOTEL is set up in a separate `~/hotel` folder. The HOTEL app and health check are not confirmed live yet. [PR #9](https://github.com/sclary2001/fullstack-brain-bucket/pull/9) updates deployment to use the separate HOTEL folder.
+The GCP VM address is `34.39.144.144`. The existing GOLF site is in `~/app`; HOTEL is set up in a separate `~/hotel` folder. The HOTEL Game Room app and health check are not confirmed live yet. [PR #9](https://github.com/sclary2001/fullstack-brain-bucket/pull/9) updates deployment to use the separate HOTEL folder.
 
 To run locally, open a terminal in `server/`, run `npm ci`, copy `server/.env.example` to `server/.env`, set your Atlas connection string in `MONGODB_URI`, then run `npm start`. The local site opens at http://localhost:5500.
 
