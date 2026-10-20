@@ -1,58 +1,68 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sock Drawer</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <style>
-    /* ui.js adds this class while a sock is being edited */
-    #sockForm.editing { background: #fff3cd; border: 2px solid #ffc107; border-radius: 6px; padding: 8px; }
-  </style>
+  <meta name="theme-color" content="#173b35">
+  <meta name="description" content="Manage video games in the HOTEL guest game room.">
+  <title>HOTEL Game Room | Video Game Library</title>
+  <link rel="stylesheet" href="/hotel.css">
+  <script src="/hotel.js" defer></script>
 </head>
-
 <body>
-  <main class="container py-4">
-    <h1>Sock Drawer</h1>
-
-    <!-- Add / edit form. The hidden id tells us whether we are creating or updating. -->
-    <form id="sockForm" class="row g-2 mb-4">
-      <input type="hidden" id="sockId">
-      <div class="col-md-4"><input id="title" class="form-control" placeholder="Title (e.g. blue stripey)" required></div>
-      <div class="col-md-2">
-        <select id="condition" class="form-select">
-          <option>new</option>
-          <option selected>good</option>
-          <option>worn</option>
-          <option>holey</option>
-        </select>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="HOTEL Game Room home"><span class="brand-mark">H</span><span>HOTEL</span></a>
+    <span class="top-note">GAME ROOM <span class="live-dot"></span> GAME LIBRARY</span>
+  </header>
+  <main class="shell">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">THE HOTEL GAME ROOM</p>
+        <h1>Pick a game.<br><em>Press play.</em></h1>
+        <p class="lede">Keep the guest game collection organized. Add titles, track platforms and copies, and find what is ready to play.</p>
       </div>
-      <div class="col-md-4"><input id="tags" class="form-control" placeholder="Tags, comma separated"></div>
-      <div class="col-md-2 d-grid"><button id="saveBtn" class="btn btn-primary">Add sock</button></div>
-    </form>
+      <div class="stat"><span id="item-count">—</span><small>games in view</small></div>
+    </section>
 
-    <!-- Search -->
-    <div class="input-group mb-3">
-      <input id="searchBox" class="form-control" placeholder="Search by title or tag">
-      <button id="searchBtn" class="btn btn-outline-secondary">Search</button>
-      <button id="clearFilterBtn" class="btn btn-outline-secondary">Show all</button>
-    </div>
+    <section class="panel" aria-labelledby="form-title">
+      <div class="panel-heading">
+        <div><p class="eyebrow">GAME COLLECTION</p><h2 id="form-title">Add a game</h2></div>
+        <button class="text-button hidden" id="cancel-edit" type="button">Cancel edit</button>
+      </div>
+      <form id="item-form">
+        <label>Game title<input name="name" required maxlength="100" placeholder="e.g. Mario Kart 8 Deluxe"></label>
+        <label>Platform or genre<input name="category" list="category-options" required maxlength="60" placeholder="e.g. Nintendo Switch">
+          <datalist id="category-options">
+            <option value="Nintendo Switch"><option value="PlayStation 5"><option value="Xbox"><option value="PC"><option value="Retro"><option value="Board game">
+          </datalist>
+        </label>
+        <label>Copies<input name="quantity" type="number" min="0" step="1" value="1" required></label>
+        <label>Stored at<input name="location" maxlength="80" placeholder="e.g. Front desk cabinet"></label>
+        <label class="wide">Notes<input name="notes" maxlength="500" placeholder="Optional details, age rating, or accessories"></label>
+        <div class="form-actions">
+          <button class="primary" id="submit-button" type="submit">Save game <span aria-hidden="true">↗</span></button>
+          <span class="form-hint">Changes are saved to the HOTEL database</span>
+        </div>
+      </form>
+      <p class="message" id="form-message" role="status"></p>
+    </section>
 
-    <p id="message" class="text-danger"></p>
-
-    <table class="table">
-      <thead>
-        <tr><th>Title</th><th>Condition</th><th>Tags</th><th>Notes</th><th></th></tr>
-      </thead>
-      <tbody id="sockList"></tbody>
-    </table>
+    <section class="list-section" aria-labelledby="list-title">
+      <div class="list-heading">
+        <div><p class="eyebrow">READY TO PLAY</p><h2 id="list-title">Video game library</h2></div>
+        <div class="filters">
+          <label class="search"><span class="sr-only">Search game title</span><input id="search-filter" type="search" placeholder="Find a game"></label>
+          <label><span class="sr-only">Filter platform or genre</span><select id="category-filter"><option value="">All platforms</option></select></label>
+        </div>
+      </div>
+      <div class="inventory-table" role="table" aria-label="Hotel video games">
+        <div class="table-head" role="row">
+          <span role="columnheader">GAME</span><span role="columnheader">PLATFORM / GENRE</span><span role="columnheader">COPIES</span><span role="columnheader">LOCATION</span><span role="columnheader">ACTIONS</span>
+        </div>
+        <div id="item-list" aria-live="polite"><p class="empty">Loading games…</p></div>
+      </div>
+    </section>
   </main>
-
-  <!-- Order matters: api.js first, then ui.js, then main.js. -->
-  <script src="js/api.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/main.js"></script>
+  <footer><span>HOTEL · GAME ROOM COLLECTION</span><span>GAME DATA STORED SERVER-SIDE</span></footer>
 </body>
-
 </html>

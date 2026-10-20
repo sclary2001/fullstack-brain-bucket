@@ -12,16 +12,16 @@ async function loadItems() {
   const category = document.querySelector('#category-filter').value;
   if (query) params.set('q', query);
   if (category) params.set('category', category);
-  itemList.innerHTML = '<p class="empty">Loading inventory…</p>';
+  itemList.innerHTML = '<p class="empty">Loading games…</p>';
   try {
     // User action → fetch() → Express → MongoDB → JSON → DOM.
     const response = await fetch(`/api/items?${params.toString()}`);
-    if (!response.ok) throw new Error('Could not load the inventory.');
+    if (!response.ok) throw new Error('Could not load the game library.');
     const items = await response.json();
     document.querySelector('#item-count').textContent = items.length;
     updateCategoryOptions(items);
     if (!items.length) {
-      itemList.innerHTML = '<p class="empty">No supplies match this view. Add one above.</p>';
+      itemList.innerHTML = '<p class="empty">No games match this view. Add one above.</p>';
       return;
     }
     itemList.replaceChildren(...items.map(renderItem));
@@ -37,7 +37,7 @@ function renderItem(item) {
   row.setAttribute('role', 'row');
   const supply = document.createElement('div');
   const name = document.createElement('div'); name.className = 'item-name'; name.textContent = item.name;
-  const notes = document.createElement('div'); notes.className = 'item-note'; notes.textContent = item.notes || 'Hotel supply';
+  const notes = document.createElement('div'); notes.className = 'item-note'; notes.textContent = item.notes || 'Video game';
   supply.append(name, notes);
   const category = document.createElement('span'); category.className = 'category'; category.textContent = item.category;
   const quantity = document.createElement('span'); quantity.className = 'quantity'; quantity.textContent = item.quantity;
@@ -64,11 +64,11 @@ async function beginEdit(id) {
     // Read one record by ID before filling the edit form.
     const response = await fetch(`/api/items/${encodeURIComponent(id)}`);
     const item = await response.json();
-    if (!response.ok) throw new Error(item.error || 'Could not read this supply.');
+    if (!response.ok) throw new Error(item.error || 'Could not read this game.');
     editingId = id;
     for (const field of ['name', 'category', 'quantity', 'location', 'notes']) itemForm.elements[field].value = item[field] ?? '';
-    document.querySelector('#form-title').textContent = 'Edit a supply';
-    submitButton.innerHTML = 'Update supply <span aria-hidden="true">↗</span>';
+    document.querySelector('#form-title').textContent = 'Edit a game';
+    submitButton.innerHTML = 'Update game <span aria-hidden="true">↗</span>';
     cancelEdit.classList.remove('hidden');
     itemForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } catch (error) { message.textContent = error.message; }
@@ -78,8 +78,8 @@ function resetForm() {
   editingId = null;
   itemForm.reset();
   itemForm.elements.quantity.value = '1';
-  document.querySelector('#form-title').textContent = 'Add a supply';
-  submitButton.innerHTML = 'Save supply <span aria-hidden="true">↗</span>';
+  document.querySelector('#form-title').textContent = 'Add a game';
+  submitButton.innerHTML = 'Save game <span aria-hidden="true">↗</span>';
   cancelEdit.classList.add('hidden');
   message.textContent = '';
 }
@@ -95,7 +95,7 @@ itemForm.addEventListener('submit', async (event) => {
   try {
     const response = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(values) });
     const result = response.status === 204 ? null : await response.json();
-    if (!response.ok) throw new Error(result?.error || 'Could not save this supply.');
+    if (!response.ok) throw new Error(result?.error || 'Could not save this game.');
     resetForm();
     await loadItems();
   } catch (error) { message.textContent = error.message; }
@@ -103,12 +103,12 @@ itemForm.addEventListener('submit', async (event) => {
 });
 
 async function deleteItem(id) {
-  if (!window.confirm('Delete this supply permanently?')) return;
+  if (!window.confirm('Delete this game from the collection?')) return;
   try {
     const response = await fetch(`/api/items/${encodeURIComponent(id)}`, { method: 'DELETE' });
     if (!response.ok) {
       const result = await response.json();
-      throw new Error(result.error || 'Could not delete this supply.');
+      throw new Error(result.error || 'Could not delete this game.');
     }
     if (editingId === id) resetForm();
     await loadItems();
