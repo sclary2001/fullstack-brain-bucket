@@ -31,15 +31,15 @@ GOLF built the infrastructure. HOTEL puts it to work: **static frontend → `fet
 | Feature → dev | [PR #2](https://github.com/sclary2001/fullstack-brain-bucket/pull/2) — merged into `dev` |
 | dev → main | [PR #3](https://github.com/sclary2001/fullstack-brain-bucket/pull/3) — merged into `main` |
 | GCP workflow target fix | [PR #4](https://github.com/sclary2001/fullstack-brain-bucket/pull/4) — merged into `dev`; this promotion PR carries the fix to `main` |
-| PROD deployment | [GCP deploy workflow](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml); successful deployment pending SSH key and server MongoDB URI |
+| PROD deployment | [GCP deploy workflow](https://github.com/sclary2001/fullstack-brain-bucket/blob/main/.github/workflows/re-deploy-main-to-gcp.yml); successful deployment pending remote MongoDB setup |
 
 ## Current GCP deployment status
 
-The VM shown in GCP is `34.39.144.144`. The deploy workflows target that VM, pull `main` into `app/server`, and start `app.js` with PM2. The GCP app and health-check links above are not live yet; the health URL currently refuses the connection.
+The GCP VM is `34.39.144.144`. It already contains the GOLF site at `~/app`. HOTEL deployment uses a separate checkout at `~/hotel` and starts Express from `~/hotel/server`, preserving the existing GOLF files. The app and health-check links are not live until MongoDB is configured and deployment succeeds.
 
 To finish deployment:
 1. Add the VM's matching private SSH key in GitHub **Settings → Secrets and variables → Actions** as `SSH_PRIVATE_KEY`.
-2. Configure `MONGODB_URI` in `app/server/.env` on the VM; keep the URI out of GitHub.
+2. Configure `MONGODB_URI` in `~/hotel/server/.env` on the VM; keep the URI out of GitHub.
 3. Confirm the VM's web route reaches port `5500` or its configured reverse proxy.
 4. After this PR reaches `main`, run the [GCP deploy workflow](https://github.com/sclary2001/fullstack-brain-bucket/actions/workflows/re-deploy-main-to-gcp.yml), then verify the app and health-check links above.
 
