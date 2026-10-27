@@ -11,7 +11,7 @@ HOTEL uses a browser page, `fetch()`, an Express REST API, and MongoDB Atlas. Th
 |---|---|
 | [HOTEL on GCP — PROD](http://34.39.144.144:5500/) | Production app on the GCP VM; deployment is still being set up |
 | [HOTEL API health check](http://34.39.144.144:5500/api/health) | Returns JSON when the HOTEL server is running |
-| [Existing Render app](https://fullstack-brain-bucket-bpdo.onrender.com) | Existing GOLF app; HOTEL is not deployed there |
+| [Existing Render app](https://fullstack-brain-bucket-ayuh.onrender.com/) | Existing GOLF app; HOTEL is not deployed there |
 | [MongoDB Atlas dashboard](https://cloud.mongodb.com/) | Sign in to view the Atlas cluster and database |
 | [GCP deployment workflow](https://github.com/sclary2001/fullstack-brain-bucket/actions/workflows/re-deploy-main-to-gcp.yml) | Starts deployment to the GCP VM |
 | [GCP deployment history](https://github.com/sclary2001/fullstack-brain-bucket/actions/workflows/re-deploy-main-to-gcp.yml) | View deployment runs and results |
