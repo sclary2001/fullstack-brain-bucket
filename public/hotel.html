@@ -4,39 +4,65 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#173b35">
-  <title>HOTEL | Supply Desk</title>
+  <meta name="description" content="Manage video games in the HOTEL guest game room.">
+  <title>HOTEL Game Room | Video Game Library</title>
   <link rel="stylesheet" href="/hotel.css">
   <script src="/hotel.js" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="/" aria-label="HOTEL Supply Desk home"><span class="brand-mark">H</span><span>HOTEL</span></a>
-    <span class="top-note">SUPPLY DESK <span class="live-dot"></span> LIVE INVENTORY</span>
+    <a class="brand" href="/" aria-label="HOTEL Game Room home"><span class="brand-mark">H</span><span>HOTEL</span></a>
+    <span class="top-note">GAME ROOM <span class="live-dot"></span> GAME LIBRARY</span>
   </header>
   <main class="shell">
     <section class="intro">
-      <div><p class="eyebrow">ROOMS RUN SMOOTHER</p><h1>Ready for every<br><em>little detail.</em></h1><p class="lede">Keep the essentials in reach. Track what your team needs to make each guest feel at home.</p></div>
-      <div class="stat"><span id="item-count">—</span><small>items in view</small></div>
+      <div>
+        <p class="eyebrow">THE HOTEL GAME ROOM</p>
+        <h1>Pick a game.<br><em>Press play.</em></h1>
+        <p class="lede">Keep the guest game collection organized. Add titles, track platforms and copies, and find what is ready to play.</p>
+      </div>
+      <div class="stat"><span id="item-count">—</span><small>games in view</small></div>
     </section>
+
     <section class="panel" aria-labelledby="form-title">
-      <div class="panel-heading"><div><p class="eyebrow">INVENTORY</p><h2 id="form-title">Add a supply</h2></div><button class="text-button hidden" id="cancel-edit" type="button">Cancel edit</button></div>
+      <div class="panel-heading">
+        <div><p class="eyebrow">GAME COLLECTION</p><h2 id="form-title">Add a game</h2></div>
+        <button class="text-button hidden" id="cancel-edit" type="button">Cancel edit</button>
+      </div>
       <form id="item-form">
-        <label>Item name<input name="name" required maxlength="100" placeholder="e.g. Bath towels"></label>
-        <label>Category<input name="category" list="category-options" required maxlength="60" placeholder="e.g. Linen"><datalist id="category-options"><option value="Linen"><option value="Guest amenities"><option value="Housekeeping"><option value="Kitchen"><option value="Maintenance"></datalist></label>
-        <label>Quantity<input name="quantity" type="number" min="0" step="1" value="1" required></label>
-        <label>Stored at<input name="location" maxlength="80" placeholder="e.g. Floor 2 closet"></label>
-        <label class="wide">Notes<input name="notes" maxlength="500" placeholder="Optional details for the team"></label>
-        <div class="form-actions"><button class="primary" id="submit-button" type="submit">Save supply <span aria-hidden="true">↗</span></button><span class="form-hint">Changes are saved to the HOTEL database</span></div>
+        <label>Game title<input name="name" required maxlength="100" placeholder="e.g. Mario Kart 8 Deluxe"></label>
+        <label>Platform or genre<input name="category" list="category-options" required maxlength="60" placeholder="e.g. Nintendo Switch">
+          <datalist id="category-options">
+            <option value="Nintendo Switch"><option value="PlayStation 5"><option value="Xbox"><option value="PC"><option value="Retro"><option value="Board game">
+          </datalist>
+        </label>
+        <label>Copies<input name="quantity" type="number" min="0" step="1" value="1" required></label>
+        <label>Stored at<input name="location" maxlength="80" placeholder="e.g. Front desk cabinet"></label>
+        <label class="wide">Notes<input name="notes" maxlength="500" placeholder="Optional details, age rating, or accessories"></label>
+        <div class="form-actions">
+          <button class="primary" id="submit-button" type="submit">Save game <span aria-hidden="true">↗</span></button>
+          <span class="form-hint">Changes are saved to the HOTEL database</span>
+        </div>
       </form>
       <p class="message" id="form-message" role="status"></p>
     </section>
+
     <section class="list-section" aria-labelledby="list-title">
-      <div class="list-heading"><div><p class="eyebrow">THE SUPPLY ROOM</p><h2 id="list-title">Inventory overview</h2></div>
-        <div class="filters"><label class="search"><span class="sr-only">Search supply name</span><input id="search-filter" type="search" placeholder="Find a supply"></label><label><span class="sr-only">Filter category</span><select id="category-filter"><option value="">All categories</option></select></label></div>
+      <div class="list-heading">
+        <div><p class="eyebrow">READY TO PLAY</p><h2 id="list-title">Video game library</h2></div>
+        <div class="filters">
+          <label class="search"><span class="sr-only">Search game title</span><input id="search-filter" type="search" placeholder="Find a game"></label>
+          <label><span class="sr-only">Filter platform or genre</span><select id="category-filter"><option value="">All platforms</option></select></label>
+        </div>
       </div>
-      <div class="inventory-table" role="table" aria-label="Hotel supplies"><div class="table-head" role="row"><span role="columnheader">SUPPLY</span><span role="columnheader">CATEGORY</span><span role="columnheader">QUANTITY</span><span role="columnheader">LOCATION</span><span role="columnheader">ACTIONS</span></div><div id="item-list" aria-live="polite"><p class="empty">Loading inventory…</p></div></div>
+      <div class="inventory-table" role="table" aria-label="Hotel video games">
+        <div class="table-head" role="row">
+          <span role="columnheader">GAME</span><span role="columnheader">PLATFORM / GENRE</span><span role="columnheader">COPIES</span><span role="columnheader">LOCATION</span><span role="columnheader">ACTIONS</span>
+        </div>
+        <div id="item-list" aria-live="polite"><p class="empty">Loading games…</p></div>
+      </div>
     </section>
   </main>
-  <footer><span>HOTEL · THOUGHTFUL STAYS, DOWN TO THE DETAILS</span><span>INVENTORY STORED SERVER-SIDE</span></footer>
+  <footer><span>HOTEL · GAME ROOM COLLECTION</span><span>GAME DATA STORED SERVER-SIDE</span></footer>
 </body>
 </html>
