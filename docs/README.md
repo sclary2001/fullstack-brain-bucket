@@ -9,7 +9,7 @@ HOTEL uses a browser page, `fetch()`, an Express REST API, and MongoDB Atlas. Th
 
 | Link | What it opens |
 |---|---|
-| [HOTEL on GCP — PROD](http://34.39.144.144:5500/) | Production app on the GCP VM; deployment is still being set up |
+| [HOTEL on GCP — PROD](](https://sclary.barrycumbie.com/) | Production app on the GCP VM; deployment is still being set up |
 | [HOTEL API health check](http://34.39.144.144:5500/api/health) | Returns JSON when the HOTEL server is running |
 | [Existing Render app](https://fullstack-brain-bucket-ayuh.onrender.com/) | Existing GOLF app; HOTEL is not deployed there |
 | [MongoDB Atlas dashboard](https://cloud.mongodb.com/) | Sign in to view the Atlas cluster and database |
