@@ -149,7 +149,7 @@ export async function start() {
   process.on('SIGINT', shutdown);
   return server;
 }
-
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  start().catch((error) => { console.error('Unable to start HOTEL:', error.message); process.exit(1); });
-}
+start().catch((error) => {
+   console.error('Unable to start HOTEL:', error);
+   process.exit(1);
++ });

@@ -33,7 +33,7 @@ after(async () => {
 test('HTTP app serves the HOTEL frontend and health endpoint', async () => {
   const page = await fetch(origin);
   assert.equal(page.status, 200);
-  assert.match(await page.text(), /Ready for every/);
+  assert.match(await page.text(), /Pick a game/);
   const health = await fetch(`${origin}/api/health`);
   assert.deepEqual(await health.json(), { status: 'ok' });
 });
